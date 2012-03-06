@@ -37,13 +37,12 @@ void GameSelectPlayers()
 	bool confirm=0;
 
 	while (!confirm){
-		confirm=1;
 		while (true)
-		{
+		{	
+			GameData()->numplayers=0;
 			// Reset click
 			GameData()->ResetLastClick();
 			Point2i mousepos;
-
 			// Sit and wait for a click to come through
 			do
 			mousepos = GameData()->GetLastClick();
@@ -70,7 +69,7 @@ void GameSelectPlayers()
 		GameData()->selectPlayerType = 1;
 
 		//Req105.3 professional rules are defaulted to off NEEDS TO BE CHANGED
-		GameData()->pro=1;
+		GameData()->pro=0;
 
 
 		while (true)
@@ -93,28 +92,78 @@ void GameSelectPlayers()
 				ChangeAI(GameData()->players.at(2).isHuman, GameData()->players.at(2).isRule);
 			else if (mousepos.x >= 300 && mousepos.x <= 428 && mousepos.y >= 400 && mousepos.y <= 464 && GameData()->players.at(3).isPlaying)
 				ChangeAI(GameData()->players.at(3).isHuman, GameData()->players.at(3).isRule);
-
-
-			//Req105.3 NEED A BUTTON THAT CHANGES FROM YES/NO TO PROFESSIONAL RULES AND PROPER COORDINATES
-			else if (mousepos.x >= -1 && mousepos.x <= 1 && mousepos.y >= -1 && mousepos.y <= 1)
-				if (GameData()->pro==0)
-					GameData()->pro=1;
-				else
+			//pro rules
+			else if (mousepos.x >= 231 && mousepos.x <= 306 && mousepos.y >= 50 && mousepos.y <= 89){
+				if (GameData()->pro)
 					GameData()->pro=0;
-
+				else
+					GameData()->pro=1;
+			}
 
 
 			// Exit when you click on "Done"
-			if (mousepos.x >= 232 && mousepos.x <= 296 && mousepos.y >= 350 && mousepos.y <= 414)
+			if (mousepos.x >= 232 && mousepos.x <= 296 && mousepos.y >= 350 && mousepos.y <= 414){
+				while (true)
+				{
+					do
+					mousepos = GameData()->GetLastClick();
+					while (mousepos == Point2i(-1,-1));
+					//button location= 200/220
+					GameData()->confirmselect=1;
+					if (mousepos.x >= 210 && mousepos.x <= 252 && mousepos.y >= 252 && mousepos.y <= 278){
+						cout<<confirm<<endl;
+						confirm=1;
+						break;
+					}
+					if (mousepos.x >= 271 && mousepos.x <= 316 && mousepos.y >= 251 && mousepos.y <= 278){
+						confirm=0;
+						GameData()->confirmselect=0;
+						GameData()->selectPlayerType=0;
+						for (int i = 0; i < GameData()->numplayers; i++)
+							GameData()->players.at(i).isPlaying = 0;
+						GameData()->numplayers=0;
+						break;
+					}
+				}
 				break;
 		}
 
-
+		
 		//TEXT BOX APPEARS ASKING TO CONFIRM SELECTIONS Req104.18 
 		//IF PLAYER CONFIRMS SELECTIONS, confirm=1
 		//IF A PLAYER WISHES TO GO BACK, confirm=0
 
-		if (!confirm){
+
+		}
+		GameData()->ResetLastClick();
+
+		if (confirm){
+			while (true){
+				GameData()->firstoption=1;
+				Point2i mousepos;
+				do
+				mousepos = GameData()->GetLastClick();
+				while (mousepos == Point2i(-1,-1));
+				if (mousepos.x >= 188 && mousepos.x <= 214 && mousepos.y >= 238 && mousepos.y <= 268){
+					GameData()->adjustplayer=0; //white is first
+					break;
+					}
+				if (mousepos.x >= 233 && mousepos.x <= 259 && mousepos.y >= 242 && mousepos.y <= 269){
+					GameData()->adjustplayer=1; //black is first
+					break;
+					}
+				if (mousepos.x >= 277 && mousepos.x <= 304 && mousepos.y >= 241 && mousepos.y <= 268 && GameData()->numplayers>2){
+					GameData()->adjustplayer=2; //red is first
+					break;
+					}
+				if (mousepos.x >= 322 && mousepos.x <= 351 && mousepos.y >= 241 && mousepos.y <= 269 && GameData()->numplayers>3){
+					GameData()->adjustplayer=3; //blue is first
+					break;
+					}
+			}
+
+
+
 			for (int i = 0; i < GameData()->numplayers; i++)
 			GameData()->players.at(i).isPlaying = 0;
 		}
@@ -126,7 +175,7 @@ void GameSelectPlayers()
 
 
 	//NEED AN OPTION BOX TO APPEAR ASKING WHICH PLAYER GOES FIRST, 0=WHITE ETC
-	GameData()->adjustplayer=0;//Req104.11 
+	//GameData()->adjustplayer=0;//Req104.11 
 
 	GameData()->exitedplayer1=-1;
 	GameData()->exitedplayer2=-1;
@@ -144,7 +193,7 @@ void GameSelectPlayers()
 // The main loop for the board game
 void GameMainBoard()
 {
-
+cout<<GameData()->adjustplayer<<endl;
 	// The number of wins must be equal to the number of plays minus one to end
 	static int numwins = 0;
 

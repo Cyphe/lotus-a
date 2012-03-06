@@ -768,10 +768,14 @@ int Board::fuckthisshit(int fuckynum){
 //Draw the board on the screen
 void Board::Render()
 {
+	//GameData()->skipoption=1;
 	int goodvalue=fuckthisshit(possibleMoves);
 	//Draw the background
 	this->background->displayAt(0,0);
 	
+	if (GameData()->skipoption==1)
+		GameData()->LotusSkip.displayAt(40, 60);
+
 	//draw wether eacher player is human, rule, or state AI
 		if(GameData()->players.at(0).isPlaying){
 			if(GameData()->players.at(0).isHuman)

@@ -12,10 +12,19 @@ void RenderLoading()
 void RenderSelectPlayers()
 {
 	GameData()->LotusFrontBoard.displayAt(0, 0);
+
+
+	//GameData()->LotusRSel.displayAt(50, 50);
 	if (!GameData()->selectPlayerType)
 		GameData()->LotusPlayers.displayAt(0, 300);
 	else
 	{
+		GameData()->LotusRSel.displayAt(210, 20);
+		if (GameData()->pro)
+			GameData()->LotusYes.displayAt(228, 49);
+		else
+			GameData()->LotusNo.displayAt(228, 49);
+
 		GameData()->LotusPlayer1.displayAt(100, 300);
 		if (GameData()->players.at(0).isHuman)
 			GameData()->LotusHuman.displayAt(100,325);
@@ -58,6 +67,22 @@ void RenderSelectPlayers()
 		}
 		GameData()->LotusFinished.displayAt(232, 350);
 	}
+
+
+	if (GameData()->confirmselect==1)
+		GameData()->LotusConfirm.displayAt(200, 220);
+	if (GameData()->firstoption==1){
+		GameData()->LotusPSel.displayAt(171, 190);
+		GameData()->LotusWhite.displayAt(186, 240);
+		GameData()->LotusBlack.displayAt(231, 240);
+		if (GameData()->numplayers>2){
+			GameData()->LotusRed.displayAt(276, 240);
+			if (GameData()->numplayers>3)
+				GameData()->LotusBlue.displayAt(321, 240);
+		}
+
+
+	}
 }
 
 // The main render function (can be used to call other rendering functions)
@@ -74,3 +99,4 @@ void RenderResults()
 {
 	GameData()->LotusBoard.displayAt(0, 0);
 }
+

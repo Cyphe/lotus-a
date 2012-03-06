@@ -54,6 +54,8 @@ public:
 	PlayerType player2;
 	PlayerType player3;
 	PlayerType player4;
+	PNG LotusYes;
+	PNG LotusNo;
 
 	bool gLoaded;
 	bool gRunning;
@@ -73,9 +75,11 @@ public:
 	int adjustplayer; //Req104.11 
 	int exitedplayer1;
 	int exitedplayer2;
-
+	int confirmselect;
+	int skipoption;
+	int firstoption;
 	Scene SceneState;
-
+	
 	vector<TRule> Rules;
 	vector<TMove> Moves;
 

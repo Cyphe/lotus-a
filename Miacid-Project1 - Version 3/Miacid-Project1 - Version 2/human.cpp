@@ -15,8 +15,11 @@ void PerformHumanTurn(Player &player)
 
 		skip=1; //a rule based AI will skip their turn if all their pieces are covered Req105.2 
 
-		if (!GameData()->pro) //Req105.3
-			NULL; //IF A PLAYER, CHOICE BOX TO ASK USER TO SKIP TURN OR NOT Req105.1 
+		if (!GameData()->pro) {//Req105.3
+			GameData()->skipoption=1;
+			
+		}
+		//IF A PLAYER, CHOICE BOX TO ASK USER TO SKIP TURN OR NOT Req105.1 
 		//IF PLAYER DOESNT WANT TO SKIP, skip=O
 	}
 

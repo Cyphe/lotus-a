@@ -134,7 +134,9 @@ static void InitGame()
 	GameData()->LotusPSel.decode("images/pselect.png");//select starting player, needs other gfx implemented
 	GameData()->LotusSkip.decode("images/skipturn.png");//skip turn, no options
 	GameData()->LotusCurPlayer.decode("images/currentplayer.png");//current player outline
-	
+	GameData()->LotusYes.decode("images/yes.png");
+	GameData()->LotusNo.decode("images/no.png");
+
 	//GameData()->SetBoardMessages(GameData()->LotusMessages);
 
 
