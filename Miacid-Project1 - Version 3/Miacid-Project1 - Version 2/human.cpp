@@ -8,19 +8,38 @@ void PerformHumanTurn(Player &player)
 	int position2 = 0;
 	PIECE curpiece = player.piece;
 	bool skip=0;  //Req105.1 
-
 	// If the player has no possible moves, then they can move any piece OR SKIP THEIR TURN...
+
 	if (!GameData()->board.PossibleMove(player.piece)){
 		curpiece = PIECE_BAD;
-
 		skip=1; //a rule based AI will skip their turn if all their pieces are covered Req105.2 
-
 		if (!GameData()->pro) {//Req105.3
-			GameData()->skipoption=1;
-			
+			if (GameData()->players.at(GameData()->currentPlayer).isHuman){
+				while (true){
+				
+	
+					GameData()->skipoption=1;
+					Point2i mousepos;
+					GameData()->ResetLastClick();
+					do
+					mousepos = GameData()->GetLastClick();
+					while (mousepos == Point2i(-1,-1));
+
+					if (mousepos.x >= 195 && mousepos.x <= 246 && mousepos.y >= 255 && mousepos.y <= 279){
+
+						skip=1;
+						GameData()->skipoption=0;
+						break;
+					}
+					else if (mousepos.x >= 261 && mousepos.x <= 313 && mousepos.y >= 253 && mousepos.y <= 280){
+
+						skip=0;
+						GameData()->skipoption=0;
+						break;
+					}
+				}
+			}
 		}
-		//IF A PLAYER, CHOICE BOX TO ASK USER TO SKIP TURN OR NOT Req105.1 
-		//IF PLAYER DOESNT WANT TO SKIP, skip=O
 	}
 
 	if (!skip){ //Req105.1 

@@ -193,14 +193,13 @@ void GameSelectPlayers()
 // The main loop for the board game
 void GameMainBoard()
 {
-cout<<GameData()->adjustplayer<<endl;
 	// The number of wins must be equal to the number of plays minus one to end
 	static int numwins = 0;
 
 	// Go through every player's turn until the game ends
 	for (GameData()->currentPlayer = 0; GameData()->currentPlayer < GameData()->GetNumPlayers(); GameData()->currentPlayer++)
 	{ 
-		if (!(GameData()->exitedplayer2==GameData()->currentPlayer)||!(GameData()->exitedplayer2==GameData()->currentPlayer)){
+		if ((GameData()->exitedplayer2!=GameData()->currentPlayer)&&(GameData()->exitedplayer2!=GameData()->currentPlayer)){
 			//giant if statement for Req104.8 so that players who have exited do not take a turn
 
 			//all for Req104.11 changes current player and gets reset to temp variable when current loop is done

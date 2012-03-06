@@ -773,8 +773,7 @@ void Board::Render()
 	//Draw the background
 	this->background->displayAt(0,0);
 	
-	if (GameData()->skipoption==1)
-		GameData()->LotusSkip.displayAt(40, 60);
+
 
 	//draw wether eacher player is human, rule, or state AI
 		if(GameData()->players.at(0).isPlaying){
@@ -959,7 +958,8 @@ void Board::Render()
 				this->numbers[amountatpos-1]->displayAt(this->locations[i].x, this->locations[i].y-(GetSizeOfStack(i)*5)+1);
 		}
 	}
-	
+		if (GameData()->skipoption==1)
+		GameData()->LotusSkip.displayAt(184, 220);
 	// Draw finish zone
 	if (this->GetTopPiece(MAX_GAME_POSITIONS) != PIECE_BAD)
 	{
@@ -984,6 +984,10 @@ void Board::Render()
 
 		if (amountatpos > 1)
 			this->numbers[amountatpos-1]->displayAt(328,458);
+
+
+
+
 	}
 }
 
